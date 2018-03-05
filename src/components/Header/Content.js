@@ -1,22 +1,26 @@
 import React from 'react';
 import TodoItem from '../TodoItem/TodoItem';
+import PropTypes from 'prop-types';
 
 class Content extends React.Component {
+  todoInput;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      data: [
-        {
-          text: 'ทำไข่เจียว',
-          completed: false,
-        },
-        {
-          text: 'ซักผ้าให้ลูก',
-          completed: false,
-        },
-      ],
+      data: props.initialData,
     };
+  }
+
+  addTodoList() {
+    const input = this.refs.todoInput;
+
+    let new_state = this.state.data;
+    new_state.push({
+      text: input.value,
+    });
+
+    this.setState({data: new_state});
   }
 
   render() {
@@ -24,8 +28,10 @@ class Content extends React.Component {
         <div>
           <div>
             <h2>Todo Lists</h2>
-            <input type="text" />
-            <button>Add</button>
+            <input type="text" ref="todoInput" />
+            <button type="button" onClick={() => this.addTodoList()}>
+              Add
+            </button>
           </div>
           <hr />
           {this.state.data.map((item, id) => {
@@ -35,5 +41,18 @@ class Content extends React.Component {
     );
   }
 }
+
+Content.propTypes = {
+  initialData: PropTypes.array,
+};
+
+Content.defaultProps = {
+  initialData: [
+    {
+      text: 'Hello World',
+      completed: false,
+    },
+  ],
+};
 
 export default Content;
