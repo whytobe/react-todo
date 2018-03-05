@@ -12,15 +12,16 @@ class Content extends React.Component {
     };
   }
 
-  addTodoList() {
+  addTodoList(e) {
     const input = this.refs.todoInput;
-
-    let new_state = this.state.data;
-    new_state.push({
-      text: input.value,
-    });
-
-    this.setState({data: new_state});
+    this.setState(prevState => ({
+      data: [
+        ...prevState.data,
+        {
+          text: input.value,
+          completed: false,
+        }],
+    }));
   }
 
   render() {
@@ -29,7 +30,8 @@ class Content extends React.Component {
           <div>
             <h2>Todo Lists</h2>
             <input type="text" ref="todoInput" />
-            <button type="button" onClick={() => this.addTodoList()}>
+            <button type="button"
+                    onClick={(e) => this.addTodoList(e)}>
               Add
             </button>
           </div>

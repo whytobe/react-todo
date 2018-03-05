@@ -12,7 +12,7 @@ class TodoItem extends React.Component {
 }
 
 TodoItem.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   completed: PropTypes.bool,
 };
 
