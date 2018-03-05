@@ -1,12 +1,14 @@
 import React from 'react';
 import TodoItem from '../TodoItem/TodoItem';
 import PropTypes from 'prop-types';
+import {Button, Col, Grid, ListGroup, Row} from 'react-bootstrap';
 
 class Content extends React.Component {
   todoInput;
 
   constructor(props) {
     super(props);
+
     this.state = {
       data: props.initialData,
     };
@@ -22,6 +24,7 @@ class Content extends React.Component {
           completed: false,
         }],
     }));
+
   }
 
   removeTodoItem(id) {
@@ -49,23 +52,32 @@ class Content extends React.Component {
 
   render() {
     return (
-        <div>
-          <div>
-            <h2>Todo Lists</h2>
-            <input type="text" ref="todoInput" />
-            <button type="button"
+        <Grid>
+          <Row>
+            <Col>
+              <input className="form-control" type="text" ref="todoInput" />
+              <Button
+                  bsSize="small"
+                  bsStyle="primary" type="button"
                     onClick={(e) => this.addTodoItem(e)}>
-              Add
-            </button>
-          </div>
-          <hr />
-          {this.state.data.map((item, id) => {
-            return <TodoItem key={id} id={id}
-                             data={item}
-                             onToggleClick={(id) => this.onToggleClick(id)}
-                             onRemoveClick={(id) => this.removeTodoItem(id)} />;
-          })}
-        </div>
+                Add
+              </Button>
+              <hr />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ListGroup style={{textAlign: 'left'}}>
+                {this.state.data.map((item, id) => {
+                  return <TodoItem
+                      key={id} id={id} data={item}
+                      onToggleClick={id => this.onToggleClick(id)}
+                      onRemoveClick={id => this.removeTodoItem(id)} />;
+                })}
+              </ListGroup>
+            </Col>
+          </Row>
+        </Grid>
     );
   }
 }

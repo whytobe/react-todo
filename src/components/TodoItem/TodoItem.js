@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Button, ListGroupItem} from 'react-bootstrap';
 
 class TodoItem extends React.Component {
   render() {
     return (
-        <li style={{
-          textDecoration: this.props.data.completed ? 'line-through' : '',
-        }}>
-          <span onClick={() => this.props.onToggleClick(
-              this.props.id)}>{this.props.data.text}</span>
-          <button type="button"
+        <ListGroupItem
+            style={{
+              textDecoration: this.props.data.completed ? 'line-through' : '',
+            }}>
+          <span
+              onClick={() => this.props.onToggleClick(this.props.id)}>
+            {this.props.data.text}
+            </span>
+          <Button bsClass="pull-right btn-xs btn-danger"
                   onClick={() =>
                       this.props.onRemoveClick(this.props.id)}>del
-          </button>
-        </li>
+          </Button>
+        </ListGroupItem>
     );
   }
 }
