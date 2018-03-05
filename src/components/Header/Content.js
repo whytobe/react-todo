@@ -12,7 +12,7 @@ class Content extends React.Component {
     };
   }
 
-  addTodoList(e) {
+  addTodoItem(e) {
     const input = this.refs.todoInput;
     this.setState(prevState => ({
       data: [
@@ -24,6 +24,16 @@ class Content extends React.Component {
     }));
   }
 
+  removeTodoItem(id) {
+    console.log('remove item', this, arguments);
+    this.setState(prevState => {
+      prevState.data.splice(id, 1);
+      return {
+        data: prevState.data,
+      };
+    });
+  }
+
   render() {
     return (
         <div>
@@ -31,13 +41,14 @@ class Content extends React.Component {
             <h2>Todo Lists</h2>
             <input type="text" ref="todoInput" />
             <button type="button"
-                    onClick={(e) => this.addTodoList(e)}>
+                    onClick={(e) => this.addTodoItem(e)}>
               Add
             </button>
           </div>
           <hr />
           {this.state.data.map((item, id) => {
-            return <TodoItem key={id} data={item} />;
+            return <TodoItem key={id} id={id} data={item}
+                             onRemoveClick={(id) => this.removeTodoItem(id)} />;
           })}
         </div>
     );
