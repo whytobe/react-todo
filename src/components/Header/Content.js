@@ -25,13 +25,26 @@ class Content extends React.Component {
   }
 
   removeTodoItem(id) {
-    console.log('remove item', this, arguments);
+    console.log('remove item', id);
     this.setState(prevState => {
       prevState.data.splice(id, 1);
       return {
         data: prevState.data,
       };
     });
+  }
+
+  onToggleClick(id) {
+    console.log('toggle item', id);
+    this.setState(prevState => {
+
+      prevState.data[id].completed = !prevState.data[id].completed;
+      console.log(prevState.data);
+      return {
+        data: prevState.data,
+      };
+    });
+
   }
 
   render() {
@@ -47,7 +60,9 @@ class Content extends React.Component {
           </div>
           <hr />
           {this.state.data.map((item, id) => {
-            return <TodoItem key={id} id={id} data={item}
+            return <TodoItem key={id} id={id}
+                             data={item}
+                             onToggleClick={(id) => this.onToggleClick(id)}
                              onRemoveClick={(id) => this.removeTodoItem(id)} />;
           })}
         </div>
