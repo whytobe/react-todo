@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 import {Button, ListGroupItem} from 'react-bootstrap';
 
 class TodoItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  propTypes = {
+    text: PropTypes.string,
+    completed: PropTypes.bool,
+    onRemoveClick: PropTypes.func,
+    onToggleClick: PropTypes.func,
+  };
+
   render() {
     return (
         <ListGroupItem
@@ -22,11 +33,5 @@ class TodoItem extends React.Component {
   }
 }
 
-TodoItem.propTypes = {
-  text: PropTypes.string,
-  completed: PropTypes.bool,
-  onRemoveClick: PropTypes.func,
-  onToggleClick: PropTypes.func,
-};
 
 export default TodoItem;

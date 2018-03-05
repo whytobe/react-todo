@@ -6,15 +6,28 @@ import {Button, Col, Grid, ListGroup, Row} from 'react-bootstrap';
 class Content extends React.Component {
   todoInput;
 
+  propTypes = {
+    initialData: PropTypes.array,
+  };
+
+  defaultProps = {
+    initialData: [
+      {
+        text: 'Hello World',
+        completed: false,
+      },
+    ],
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      data: props.initialData,
+      data: [],
     };
   }
 
-  addTodoItem(e) {
+  addTodoItem = () => {
     const input = this.refs.todoInput;
     this.setState(prevState => ({
       data: [
@@ -25,9 +38,9 @@ class Content extends React.Component {
         }],
     }));
 
-  }
+  };
 
-  removeTodoItem(id) {
+  removeTodoItem = (id) => {
     console.log('remove item', id);
     this.setState(prevState => {
       prevState.data.splice(id, 1);
@@ -35,9 +48,9 @@ class Content extends React.Component {
         data: prevState.data,
       };
     });
-  }
+  };
 
-  onToggleClick(id) {
+  onToggleClick = (id) => {
     console.log('toggle item', id);
     this.setState(prevState => {
 
@@ -48,20 +61,26 @@ class Content extends React.Component {
       };
     });
 
-  }
+  };
 
   render() {
     return (
         <Grid>
           <Row>
-            <Col>
+            <Col xs={9}>
               <input className="form-control" type="text" ref="todoInput" />
+            </Col>
+            <Col xs={3} style={{textAlign: 'left'}}>
               <Button
                   bsSize="small"
                   bsStyle="primary" type="button"
-                    onClick={(e) => this.addTodoItem(e)}>
+                  onClick={this.addTodoItem}>
                 Add
               </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               <hr />
             </Col>
           </Row>
@@ -71,8 +90,8 @@ class Content extends React.Component {
                 {this.state.data.map((item, id) => {
                   return <TodoItem
                       key={id} id={id} data={item}
-                      onToggleClick={id => this.onToggleClick(id)}
-                      onRemoveClick={id => this.removeTodoItem(id)} />;
+                      onToggleClick={this.onToggleClick}
+                      onRemoveClick={this.removeTodoItem} />;
                 })}
               </ListGroup>
             </Col>
@@ -82,17 +101,5 @@ class Content extends React.Component {
   }
 }
 
-Content.propTypes = {
-  initialData: PropTypes.array,
-};
-
-Content.defaultProps = {
-  initialData: [
-    {
-      text: 'Hello World',
-      completed: false,
-    },
-  ],
-};
 
 export default Content;
