@@ -11,9 +11,8 @@ const range = len => {
 
 const newHoliday = () => {
   const start_date = faker.date.past();
-  const end_date = faker.date.future();
-  const duration = moment(end_date).
-      diff(start_date, 'days');
+  const duration = faker.random.number(15);
+  const end_date = moment(start_date).add(duration, 'day').toDate();
   return {
     firstname: faker.name.firstName(),
     lastname: faker.name.lastName(),
@@ -21,7 +20,7 @@ const newHoliday = () => {
     start_date,
     end_date,
     duration,
-    reason: faker.lorem.words(),
+    reason: faker.random.arrayElement(['ลากิจ', 'ลาป่วย', 'ลาพักร้อน']),
     note: faker.lorem.words(),
     created_by: faker.name.findName(),
   };
