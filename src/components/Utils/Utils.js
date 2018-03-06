@@ -12,7 +12,7 @@ const range = len => {
 const newHoliday = () => {
   const start_date = faker.date.past();
   const duration = faker.random.number(15);
-  const end_date = moment(start_date).add(duration, 'day').toDate();
+  const end_date = moment(start_date).add(duration - 1, 'day').toDate();
   return {
     firstname: faker.name.firstName(),
     lastname: faker.name.lastName(),
