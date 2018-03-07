@@ -56,6 +56,7 @@ export default class HolidayTable extends React.Component {
     }) || [];
   };
 
+
   onQueryYearChange = (query_year) => {
     this.setState({query_year: query_year.value}, () => this.onQueryChange());
   };
